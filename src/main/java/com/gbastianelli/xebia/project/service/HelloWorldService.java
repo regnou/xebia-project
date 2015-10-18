@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package sample.simple.service;
+package com.gbastianelli.xebia.project.service;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;

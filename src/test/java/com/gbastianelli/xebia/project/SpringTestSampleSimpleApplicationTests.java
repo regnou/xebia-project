@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package sample.simple;
+package com.gbastianelli.xebia.project;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
@@ -25,6 +25,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import com.gbastianelli.xebia.project.SampleSimpleApplication;
 
 /**
  * Tests for {@link SampleSimpleApplication}.

@@ -14,13 +14,15 @@
  * limitations under the License.
  */
 
-package sample.simple;
+package com.gbastianelli.xebia.project;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.boot.test.OutputCapture;
+
+import com.gbastianelli.xebia.project.SampleSimpleApplication;
 
 import static org.junit.Assert.assertTrue;
 
