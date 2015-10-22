@@ -1,7 +1,7 @@
-package com.gbastianelli.xebia.project.business;
+package com.gbastianelli.xebia.project.mower.business;
 
-import com.gbastianelli.xebia.project.model.Direction;
-import com.gbastianelli.xebia.project.model.Position;
+import com.gbastianelli.xebia.project.mower.model.Direction;
+import com.gbastianelli.xebia.project.mower.model.Position;
 
 /**
  * <p>

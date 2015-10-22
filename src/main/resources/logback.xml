@@ -9,7 +9,7 @@
     </appender>
 
 
-    <logger name="com.gbastianelli.xebia.project" level="DEBUG"/>
+    <logger name="com.gbastianelli.xebia.project.mower.mower" level="DEBUG"/>
 
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">

@@ -22,8 +22,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.springframework.boot.test.OutputCapture;
 
-import com.gbastianelli.xebia.project.SampleSimpleApplication;
-
 import static org.junit.Assert.assertTrue;
 
 /**

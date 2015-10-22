@@ -1,4 +1,4 @@
-package com.gbastianelli.xebia.project.model;
+package com.gbastianelli.xebia.project.mower.model;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

@@ -1,4 +1,4 @@
-package com.gbastianelli.xebia.project.business;
+package com.gbastianelli.xebia.project.mower.business;
 
 import java.lang.reflect.Field;
 import java.util.Collections;
@@ -9,10 +9,10 @@ import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gbastianelli.xebia.project.model.Direction;
-import com.gbastianelli.xebia.project.model.Motion;
-import com.gbastianelli.xebia.project.model.Mower;
-import com.gbastianelli.xebia.project.model.Position;
+import com.gbastianelli.xebia.project.mower.model.Direction;
+import com.gbastianelli.xebia.project.mower.model.Motion;
+import com.gbastianelli.xebia.project.mower.model.Mower;
+import com.gbastianelli.xebia.project.mower.model.Position;
 
 /**
  * <p>

@@ -1,8 +1,10 @@
-package com.gbastianelli.xebia.project.model;
+package com.gbastianelli.xebia.project.mower.model;
 
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import com.gbastianelli.xebia.project.mower.model.Position;
 
 /**
  * <p>
