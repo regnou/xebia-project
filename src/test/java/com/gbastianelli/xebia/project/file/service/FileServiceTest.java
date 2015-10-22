@@ -16,15 +16,31 @@
 
 package com.gbastianelli.xebia.project.file.service;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.inject.Inject;
 
+import org.junit.Assert;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
+
+import com.gbastianelli.xebia.project.file.model.FileDesciptor;
+import com.gbastianelli.xebia.project.file.model.MowingDescriptor;
+import com.gbastianelli.xebia.project.mower.business.MowerProcessorTest;
+import com.gbastianelli.xebia.project.mower.model.Direction;
+import com.gbastianelli.xebia.project.mower.model.Motion;
+import com.gbastianelli.xebia.project.mower.model.Mower;
+import com.gbastianelli.xebia.project.mower.model.Position;
 
 
 /**
@@ -38,16 +54,39 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 @ContextConfiguration(classes=FileServiceTestConfig.class, loader=AnnotationConfigContextLoader.class)
 public class FileServiceTest {
 
-	@Inject
-	private IFileService fileService;
+	private static FileDesciptor expectedResult;
+	private static final Position FIELD_LIMIT=new Position(5, 5);
+	private static final Logger LOGGER = LoggerFactory.getLogger(MowerProcessorTest.class);
+
+	private static final Direction MOWER_A_DIRECTION=Direction.N;
+	private static final Motion[] MOWER_A_MOTION_SEQUENCE= {Motion.G,Motion.A,Motion.G,Motion.A,Motion.G,Motion.A,Motion.G,Motion.A,Motion.A};
+	private static final String MOWER_A_NAME="Mower 1";
+	private static final Position MOWER_A_POSITION=new Position(1, 2);
+	private static final Direction MOWER_B_DIRECTION=Direction.E;
+	private static final Motion[] MOWER_B_MOTION_SEQUENCE= {Motion.A,Motion.A,Motion.D,Motion.A,Motion.A,Motion.D,Motion.A,Motion.D,Motion.D, Motion.A};
+	private static final String MOWER_B_NAME="Mower 2";
+	private static final Position MOWER_B_POSITION=new Position(3, 3);
 	@Value("${default.mowing.file}")
 	private String fileName;
+	@Inject
+	private IFileService fileService;
 
+	@BeforeClass
+	public static void initResults() {
+		final Position field = new Position(5, 5);
+		final List<MowingDescriptor> descriptors = new ArrayList<>();
+		Mower mower = new Mower(MOWER_A_DIRECTION, MOWER_A_NAME, MOWER_A_POSITION);
+		descriptors.add(new MowingDescriptor(mower, Arrays.asList(MOWER_A_MOTION_SEQUENCE)));
+		mower = new Mower(MOWER_B_DIRECTION, MOWER_B_NAME, MOWER_B_POSITION);
+		descriptors.add(new MowingDescriptor(mower, Arrays.asList(MOWER_B_MOTION_SEQUENCE)));
+		expectedResult=new FileDesciptor(field, descriptors);
+	}
 
 	@Test
 	public void testReadFile() throws Exception {
 		final ClassPathResource resource = new ClassPathResource(fileName);
-		fileService.readFile(resource.getFile());
+		final FileDesciptor descriptor = fileService.readFile(resource.getFile());
+		Assert.assertEquals(expectedResult, descriptor);
 	}
 
 }

@@ -2,6 +2,10 @@ package com.gbastianelli.xebia.project.file.model;
 
 import java.util.List;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
 import com.gbastianelli.xebia.project.mower.model.Position;
 
 /**
@@ -32,6 +36,14 @@ public class FileDesciptor {
 	}
 
 	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		return EqualsBuilder.reflectionEquals(this, obj);
+	}
+
+	/**
 	 * Getter of {@link FileDesciptor#field}.
 	 *
 	 * @return value of {@link FileDesciptor#field}
@@ -47,6 +59,22 @@ public class FileDesciptor {
 	 */
 	public List<MowingDescriptor> getMowingDescriptors() {
 		return mowingDescriptors;
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public int hashCode() {
+		return HashCodeBuilder.reflectionHashCode(this);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public String toString() {
+		return ToStringBuilder.reflectionToString(this);
 	}
 
 
