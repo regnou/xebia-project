@@ -48,15 +48,19 @@ public class FileServiceImpl implements IFileService {
 	public FileDesciptor readFile(File file) throws FileReadingException {
 		LOGGER.info("Try to read the file : {}", file.getAbsoluteFile());
 		try {
+			// Line which discribe the field
 			final List<String> lines = FileUtils.readLines(file);
 			final Position field= parseFieldLine(lines.get(0));
 			lines.remove(0);
+			// Iterate aver mower
 			final Iterator<String> lineIterator = lines.iterator();
 			final List<MowingDescriptor> mowingDescriptors = new ArrayList<>();
 			while (lineIterator.hasNext()) {
 				String line = lineIterator.next();
 				final int mowerNumber = mowingDescriptors.size()+1;
+				// Mower
 				final Mower mower = parseMowerLine(mowerNumber, line);
+				// Motions
 				if (lineIterator.hasNext()) {
 					line = lineIterator.next();
 					final List<Motion> motions = parseMotions(mowerNumber, line);
@@ -65,7 +69,6 @@ public class FileServiceImpl implements IFileService {
 					throw new FileReadingException(String.format("The line which describe the motions of the mower %s is not present.", mowerNumber));
 				}
 			}
-
 			return new FileDesciptor(field, mowingDescriptors);
 		} catch (final IOException exception) {
 			final String errorMessage = String.format("Cannot read the file : %s.", file.getAbsolutePath());
