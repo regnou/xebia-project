@@ -19,13 +19,10 @@ package com.gbastianelli.xebia.project;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
 import org.springframework.boot.test.OutputCapture;
 
-import static org.junit.Assert.assertTrue;
-
 /**
- * Tests for {@link SampleSimpleApplication}.
+ * Tests for {@link MowingApplication}.
  *
  * @author Dave Syer
  * @author Phillip Webb
@@ -39,31 +36,31 @@ public class SampleSimpleApplicationTests {
 
 	@Before
 	public void init() {
-		this.profiles = System.getProperty("spring.profiles.active");
+		profiles = System.getProperty("spring.profiles.active");
 	}
 
 	@After
 	public void after() {
-		if (this.profiles != null) {
-			System.setProperty("spring.profiles.active", this.profiles);
+		if (profiles != null) {
+			System.setProperty("spring.profiles.active", profiles);
 		}
 		else {
 			System.clearProperty("spring.profiles.active");
 		}
 	}
 
-	@Test
-	public void testDefaultSettings() throws Exception {
-		SampleSimpleApplication.main(new String[0]);
-		String output = this.outputCapture.toString();
-		assertTrue("Wrong output: " + output, output.contains("Hello Phil"));
-	}
+	//	@Test
+	//	public void testDefaultSettings() throws Exception {
+	//		MowingApplication.main(new String[0]);
+	//		String output = this.outputCapture.toString();
+	//		assertTrue("Wrong output: " + output, output.contains("Hello Phil"));
+	//	}
 
-	@Test
-	public void testCommandLineOverrides() throws Exception {
-		SampleSimpleApplication.main(new String[] { "--name=Gordon" });
-		String output = this.outputCapture.toString();
-		assertTrue("Wrong output: " + output, output.contains("Hello Gordon"));
-	}
+	//	@Test
+	//	public void testCommandLineOverrides() throws Exception {
+	//		MowingApplication.main(new String[] { "--name=Gordon" });
+	//		final String output = outputCapture.toString();
+	//		assertTrue("Wrong output: " + output, output.contains("Hello Gordon"));
+	//	}
 
 }

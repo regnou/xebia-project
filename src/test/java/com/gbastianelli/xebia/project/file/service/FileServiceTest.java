@@ -26,8 +26,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.test.context.ContextConfiguration;
@@ -36,7 +34,6 @@ import org.springframework.test.context.support.AnnotationConfigContextLoader;
 
 import com.gbastianelli.xebia.project.file.model.FileDesciptor;
 import com.gbastianelli.xebia.project.file.model.MowingDescriptor;
-import com.gbastianelli.xebia.project.mower.business.MowerProcessorTest;
 import com.gbastianelli.xebia.project.mower.model.Direction;
 import com.gbastianelli.xebia.project.mower.model.Motion;
 import com.gbastianelli.xebia.project.mower.model.Mower;
@@ -55,9 +52,6 @@ import com.gbastianelli.xebia.project.mower.model.Position;
 public class FileServiceTest {
 
 	private static FileDesciptor expectedResult;
-	private static final Position FIELD_LIMIT=new Position(5, 5);
-	private static final Logger LOGGER = LoggerFactory.getLogger(MowerProcessorTest.class);
-
 	private static final Direction MOWER_A_DIRECTION=Direction.N;
 	private static final Motion[] MOWER_A_MOTION_SEQUENCE= {Motion.G,Motion.A,Motion.G,Motion.A,Motion.G,Motion.A,Motion.G,Motion.A,Motion.A};
 	private static final String MOWER_A_NAME="Mower 1";
@@ -66,7 +60,7 @@ public class FileServiceTest {
 	private static final Motion[] MOWER_B_MOTION_SEQUENCE= {Motion.A,Motion.A,Motion.D,Motion.A,Motion.A,Motion.D,Motion.A,Motion.D,Motion.D, Motion.A};
 	private static final String MOWER_B_NAME="Mower 2";
 	private static final Position MOWER_B_POSITION=new Position(3, 3);
-	@Value("${default.mowing.file}")
+	@Value("${inputFile}")
 	private String fileName;
 	@Inject
 	private IFileService fileService;

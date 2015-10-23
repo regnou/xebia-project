@@ -37,7 +37,7 @@ public class FileServiceImpl implements IFileService {
 	/** LOGGER */
 	private static final Logger LOGGER = LoggerFactory.getLogger(FileServiceImpl.class);
 	/** Pattern of the line which describe the motions of the mower */
-	private static final Pattern MOTIONS_LINE_PATTERN = Pattern.compile("(A|G|D)*");
+	private static final Pattern MOTIONS_LINE_PATTERN = Pattern.compile("^(A|G|D)*$");
 	/** Pattern of the line which describe the mower */
 	private static final Pattern MOWER_LINE_PATTERN = Pattern.compile("^(\\d+)( )(\\d+)( )(N|E|S|W)$");
 
@@ -69,7 +69,10 @@ public class FileServiceImpl implements IFileService {
 					throw new FileReadingException(String.format("The line which describe the motions of the mower %s is not present.", mowerNumber));
 				}
 			}
-			return new FileDesciptor(field, mowingDescriptors);
+
+			final FileDesciptor result = new FileDesciptor(field, mowingDescriptors);
+			LOGGER.info("The reading of the file is successful. There is {} mower(s) to process in a field of {}x{} square(s).", result.getMowingDescriptors().size(), result.getField().getX(), result.getField().getY());
+			return result;
 		} catch (final IOException exception) {
 			final String errorMessage = String.format("Cannot read the file : %s.", file.getAbsolutePath());
 			LOGGER.error(errorMessage, exception);
