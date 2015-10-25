@@ -41,10 +41,6 @@ import com.gbastianelli.xebia.project.mower.model.Position;
 @SpringBootApplication
 public class MowingApplication implements CommandLineRunner, IMowerProcessorListener {
 
-	// Simple example shows how a command line spring application can execute an
-	// injected bean service. Also demonstrates how you can use @Value to inject
-	// command line args ('--name=whatever') or application properties
-
 	private static final Logger LOGGER = LoggerFactory.getLogger(MowingApplication.class);
 
 	@Inject
@@ -58,41 +54,57 @@ public class MowingApplication implements CommandLineRunner, IMowerProcessorList
 
 	final TreeMap<String, MowerProcessor> map = new TreeMap<>();
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void run(String... args) {
 		LOGGER.info("Beginning of the mowing with the input file : {} and the output file :{}.", inputFilePath, outputFilePath);
-		try {
-			final File inputFile = new File(inputFilePath);
-			final FileDesciptor fileDesciptor = fileService.readFile(inputFile);
-
-			for (final MowingDescriptor mowingDescriptor : fileDesciptor.getMowingDescriptors()) {
-				final MowerProcessor processor = new MowerProcessor(fileDesciptor.getField(), mowingDescriptor.getMotions(), mowingDescriptor.getMower());
-				processor.addMowerProcessorListener(this);
-				map.put(mowingDescriptor.getMower().getName(), processor);
+		final File inputFile = new File(inputFilePath);
+		outputFile = new File(outputFilePath);
+		if (!inputFile.exists()) {
+			LOGGER.error("The input file {} doesn't exist.",inputFilePath);
+		}else if (!outputFile.exists()) {
+			LOGGER.error("The output file {} doesn't exist.",outputFilePath);
+		}else{
+			try {
+				fileService.writeDate(outputFile);
+				final FileDesciptor fileDesciptor = fileService.readFile(inputFile);
+				for (final MowingDescriptor mowingDescriptor : fileDesciptor.getMowingDescriptors()) {
+					final MowerProcessor processor = new MowerProcessor(fileDesciptor.getField(), mowingDescriptor.getMotions(),
+							mowingDescriptor.getMower());
+					processor.addMowerProcessorListener(this);
+					map.put(mowingDescriptor.getMower().getName(), processor);
+				}
+				map.firstEntry().getValue().run();
+			} catch (final FileReadingException exception) {
+				LOGGER.error(exception.getMessage());
 			}
-			map.firstEntry().getValue().run();
-		} catch (final FileReadingException exception) {
-			LOGGER.error(exception.getMessage());
 		}
-
 
 	}
 
+	private File outputFile;
+
 	public static void main(String[] args) throws Exception {
-		final SpringApplication application = new SpringApplication(
-				MowingApplication.class);
+		final SpringApplication application = new SpringApplication(MowingApplication.class);
 		application.setApplicationContextClass(AnnotationConfigApplicationContext.class);
 		SpringApplication.run(MowingApplication.class, args);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public void mowingFinished(String mowerName, Position finalPosition, Direction finalDirection) {
-		LOGGER.info("{} has finished his job. It stoped at the position {} {} with the direction {}.", mowerName, finalPosition.getX(), finalPosition.getY(), finalDirection);
+		LOGGER.info("{} has finished his job. It stoped at the position {} {} with the direction {}.", mowerName, finalPosition.getX(),
+				finalPosition.getY(), finalDirection);
+		fileService.writePositionInFile(finalPosition, finalDirection, outputFile);
 		map.get(mowerName).removeMowerProcessorListener(this);
 		map.remove(mowerName);
 		if (!map.isEmpty()) {
 			map.firstEntry().getValue().run();
-		}else {
+		} else {
 			LOGGER.info("End of the mowing.");
 		}
 	}

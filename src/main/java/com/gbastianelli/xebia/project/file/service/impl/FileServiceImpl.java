@@ -2,7 +2,9 @@ package com.gbastianelli.xebia.project.file.service.impl;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -137,6 +139,34 @@ public class FileServiceImpl implements IFileService {
 			return new Mower(mowerDirection, mowerName, mowerPosition);
 		}else {
 			throw new FileReadingException(String.format("The line '%s' which describe the mower %s is incorrect.", line, mowerNumber));
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void writePositionInFile(Position position,Direction direction,  File outputFile) {
+		LOGGER.info("Write the positon {} and the direction {} in the file {}.", position,direction, outputFile.getAbsolutePath());
+		final StringBuilder builder = new StringBuilder().append(position.getX()).append(" ").append(position.getY()).append(" ").append(direction).append(System.getProperty("line.separator"));
+		try {
+			FileUtils.writeStringToFile(outputFile, builder.toString(), true);
+		} catch (final IOException exception) {
+			LOGGER.error(String.format("Cannot write the line %s to the file %s.", builder.toString(), outputFile.getAbsolutePath()));
+		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void writeDate(File outputFile) {
+		LOGGER.info("Write the current date in the file {}.", outputFile.getAbsolutePath());
+		final StringBuilder builder = new StringBuilder().append("Mowing at ").append(SimpleDateFormat.getDateTimeInstance().format(Calendar.getInstance().getTime())).append(System.getProperty("line.separator"));
+		try {
+			FileUtils.writeStringToFile(outputFile, builder.toString(), true);
+		} catch (final IOException exception) {
+			LOGGER.error(String.format("Cannot write the current date to the file %s.", builder.toString(), outputFile.getAbsolutePath()));
 		}
 	}
 

@@ -9,14 +9,15 @@
     </appender>
 
 
-    <logger name="com.gbastianelli.xebia.project.mower.mower" level="DEBUG"/>
+    <logger name="com.gbastianelli.xebia.project.mower.mower" level="${logback.loglevel}"/>
 
+    <logger name="org.springframework" level="WARN"/>
 
     <contextListener class="ch.qos.logback.classic.jul.LevelChangePropagator">
         <resetJUL>true</resetJUL>
     </contextListener>
 
-    <root level="INFO">
+    <root level="${logback.loglevel}">
         <appender-ref ref="CONSOLE"/>
     </root>
 
