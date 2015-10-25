@@ -4,7 +4,7 @@ Exercise from Xebia to test my coding skills.
 
 ## Installation
 
-For development with a log level `DEBUG:
+For development with a log level `DEBUG`:
 ```sh
 $ mvn -Pdev install
 ```
