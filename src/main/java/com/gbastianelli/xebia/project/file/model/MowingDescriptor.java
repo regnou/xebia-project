@@ -73,6 +73,4 @@ public class MowingDescriptor {
 		return ToStringBuilder.reflectionToString(this);
 	}
 
-
-
 }

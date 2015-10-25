@@ -4,8 +4,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gbastianelli.xebia.project.mower.model.Position;
-
 /**
  * <p>
  * PostionTest: Test of {@link Position}.

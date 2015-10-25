@@ -27,6 +27,13 @@ public interface IFileService {
 	FileDesciptor readFile(File file) throws FileReadingException;
 
 	/**
+	 * Write the current date in the output file.
+	 *
+	 * @param outputFile the output file
+	 */
+	void writeDate(File outputFile);
+
+	/**
 	 * Write the position and the direction of a mower in a file.
 	 *
 	 * @param positon position of the mower
@@ -34,12 +41,5 @@ public interface IFileService {
 	 * @param outputFile the output file
 	 */
 	void writePositionInFile(Position position, Direction direction, File outputFile);
-
-	/**
-	 * Write the current date in the output file.
-	 *
-	 * @param outputFile the output file
-	 */
-	void writeDate(File outputFile);
 
 }

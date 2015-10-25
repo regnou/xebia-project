@@ -5,6 +5,7 @@ package com.gbastianelli.xebia.project.file;
  * FileReadingException: Exception during the reading a the 'mowing description' file.
  * <p>
  * Créé le 21 oct. 2015
+ * 
  * @author guillaumebastianelli
  */
 public class FileReadingException extends Exception {
@@ -21,6 +22,16 @@ public class FileReadingException extends Exception {
 
 	/**
 	 * Constructor of {@FileReadingException}.
+	 * 
+	 * @param message error message
+	 */
+	public FileReadingException(String message) {
+		super(message);
+	}
+
+	/**
+	 * Constructor of {@FileReadingException}.
+	 * 
 	 * @param message error message
 	 * @param cause the error cause
 	 */
@@ -30,14 +41,7 @@ public class FileReadingException extends Exception {
 
 	/**
 	 * Constructor of {@FileReadingException}.
-	 * @param message error message
-	 */
-	public FileReadingException(String message) {
-		super(message);
-	}
-
-	/**
-	 * Constructor of {@FileReadingException}.
+	 * 
 	 * @param cause error cause
 	 */
 	public FileReadingException(Throwable cause) {

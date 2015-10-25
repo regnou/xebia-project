@@ -15,7 +15,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 public class Position {
 
 	/** Postion on the West/East axe */
-	private final  int x;
+	private final int x;
 
 	/** Postion on the North/South axe */
 	private final int y;

@@ -9,8 +9,6 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gbastianelli.xebia.project.mower.business.IMowerProcessorListener;
-import com.gbastianelli.xebia.project.mower.business.MowerProcessor;
 import com.gbastianelli.xebia.project.mower.model.Direction;
 import com.gbastianelli.xebia.project.mower.model.Motion;
 import com.gbastianelli.xebia.project.mower.model.Mower;
@@ -18,17 +16,19 @@ import com.gbastianelli.xebia.project.mower.model.Position;
 
 public class MowerProcessorTest implements IMowerProcessorListener {
 
+	private static final Position FIELD_LIMIT = new Position(5, 5);
 	private static final Logger LOGGER = LoggerFactory.getLogger(MowerProcessorTest.class);
-	private static final Position FIELD_LIMIT=new Position(5, 5);
-	private static final Direction MOWER_A_DIRECTION=Direction.N;
-	private static final Motion[] MOWER_A_MOTION_SEQUENCE= {Motion.G,Motion.A,Motion.G,Motion.A,Motion.G,Motion.A,Motion.G,Motion.A,Motion.A};
-	private static final String MOWER_A_NAME="Mower A";
-	private static final Position MOWER_A_POSITION=new Position(1, 2);
-	private static final Direction MOWER_B_DIRECTION=Direction.E;
-	private static final Motion[] MOWER_B_MOTION_SEQUENCE= {Motion.A,Motion.A,Motion.D,Motion.A,Motion.A,Motion.D,Motion.A,Motion.D,Motion.D, Motion.A};
-	private static final String MOWER_B_NAME="Mower B";
-	private static final Position MOWER_B_POSITION=new Position(3, 3);
-	private boolean isRunning=true;
+	private static final Direction MOWER_A_DIRECTION = Direction.N;
+	private static final Motion[] MOWER_A_MOTION_SEQUENCE = { Motion.G, Motion.A, Motion.G, Motion.A, Motion.G, Motion.A, Motion.G, Motion.A,
+			Motion.A };
+	private static final String MOWER_A_NAME = "Mower A";
+	private static final Position MOWER_A_POSITION = new Position(1, 2);
+	private static final Direction MOWER_B_DIRECTION = Direction.E;
+	private static final Motion[] MOWER_B_MOTION_SEQUENCE = { Motion.A, Motion.A, Motion.D, Motion.A, Motion.A, Motion.D, Motion.A, Motion.D,
+			Motion.D, Motion.A };
+	private static final String MOWER_B_NAME = "Mower B";
+	private static final Position MOWER_B_POSITION = new Position(3, 3);
+	private boolean isRunning = true;
 	private Mower mowerA;
 	private MowerProcessor processorA;
 	private MowerProcessor processorB;
@@ -41,16 +41,22 @@ public class MowerProcessorTest implements IMowerProcessorListener {
 
 	@Before
 	public void initMowerProcessor() {
-		isRunning=true;
-		mowerA =new Mower(MOWER_A_DIRECTION, MOWER_A_NAME, MOWER_A_POSITION);
-		processorA=new MowerProcessor(FIELD_LIMIT, Arrays.asList(MOWER_A_MOTION_SEQUENCE), mowerA);
+		isRunning = true;
+		mowerA = new Mower(MOWER_A_DIRECTION, MOWER_A_NAME, MOWER_A_POSITION);
+		processorA = new MowerProcessor(FIELD_LIMIT, Arrays.asList(MOWER_A_MOTION_SEQUENCE), mowerA);
 		processorA.addMowerProcessorListener(this);
 
 		final Mower mower = new Mower(MOWER_B_DIRECTION, MOWER_B_NAME, MOWER_B_POSITION);
-		processorB=new MowerProcessor(FIELD_LIMIT, Arrays.asList(MOWER_B_MOTION_SEQUENCE), mower);
+		processorB = new MowerProcessor(FIELD_LIMIT, Arrays.asList(MOWER_B_MOTION_SEQUENCE), mower);
 		processorB.addMowerProcessorListener(this);
 	}
 
+	@Override
+	public void mowingFinished(String mowerName, Position finalPosition, Direction finalDirection) {
+		LOGGER.info("The mower {} has finished its job! It's final direction and direction are {} {} {}.", mowerName, finalPosition.getX(),
+				finalPosition.getY(), finalDirection);
+		isRunning = false;
+	}
 
 	@Test
 	public void testAddMowerProcessorListener() {
@@ -101,12 +107,6 @@ public class MowerProcessorTest implements IMowerProcessorListener {
 		}
 		Assert.assertEquals(new Position(5, 1), processorB.getMower().getPosition());
 		Assert.assertEquals(Direction.E, processorB.getMower().getDirection());
-	}
-
-	@Override
-	public void mowingFinished(String mowerName, Position finalPosition, Direction finalDirection) {
-		LOGGER.info("The mower {} has finished its job! It's final direction and direction are {} {} {}.", mowerName, finalPosition.getX(), finalPosition.getY(), finalDirection);
-		isRunning=false;
 	}
 
 }

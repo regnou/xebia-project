@@ -4,58 +4,55 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gbastianelli.xebia.project.mower.model.Direction;
-import com.gbastianelli.xebia.project.mower.model.Mower;
-import com.gbastianelli.xebia.project.mower.model.Position;
-
 /**
  * <p>
  * MowerTest: Test of {@link Mower}
  * <p>
  * Créé le 18 oct. 2015
+ * 
  * @author guillaumebastianelli
  */
 public class MowerTest {
 
-	private static final Direction DEFAULT_DIRECTION=Direction.N;
-	private static final String DEFAULT_NAME="default name";
-	private static final Position DEFAULT_POSITION=new Position(2, 2);
-	private static final Direction NEW_DIRECTION=Direction.S;
-	private static final String NEW_NAME="new name";
-	private static final Position NEW_POSITION=new Position(6, 4);
+	private static final Direction DEFAULT_DIRECTION = Direction.N;
+	private static final String DEFAULT_NAME = "default name";
+	private static final Position DEFAULT_POSITION = new Position(2, 2);
+	private static final Direction NEW_DIRECTION = Direction.S;
+	private static final String NEW_NAME = "new name";
+	private static final Position NEW_POSITION = new Position(6, 4);
 	private Mower mower;
 
 	@Before
 	public void initMower() {
-		mower=new Mower(DEFAULT_DIRECTION, DEFAULT_NAME, DEFAULT_POSITION);
+		mower = new Mower(DEFAULT_DIRECTION, DEFAULT_NAME, DEFAULT_POSITION);
 	}
 
-	//	@Test
-	//	public void moveEast() {
-	//		mower.setDirection(Direction.E);
-	//		mower.move(Motion.A);
-	//		Assert.assertEquals(DEFAULT_POSITION.getX()+1, mower.getPosition().getX());
-	//	}
+	// @Test
+	// public void moveEast() {
+	// mower.setDirection(Direction.E);
+	// mower.move(Motion.A);
+	// Assert.assertEquals(DEFAULT_POSITION.getX()+1, mower.getPosition().getX());
+	// }
 	//
-	//	@Test
-	//	public void moveNorth() {
-	//		mower.move(Motion.A);
-	//		Assert.assertEquals(DEFAULT_POSITION.getY()+1, mower.getPosition().getY());
-	//	}
+	// @Test
+	// public void moveNorth() {
+	// mower.move(Motion.A);
+	// Assert.assertEquals(DEFAULT_POSITION.getY()+1, mower.getPosition().getY());
+	// }
 	//
-	//	@Test
-	//	public void moveSouth() {
-	//		mower.setDirection(Direction.S);
-	//		mower.move(Motion.A);
-	//		Assert.assertEquals(DEFAULT_POSITION.getY()-1, mower.getPosition().getY());
-	//	}
+	// @Test
+	// public void moveSouth() {
+	// mower.setDirection(Direction.S);
+	// mower.move(Motion.A);
+	// Assert.assertEquals(DEFAULT_POSITION.getY()-1, mower.getPosition().getY());
+	// }
 	//
-	//	@Test
-	//	public void moveWest() {
-	//		mower.setDirection(Direction.W);
-	//		mower.move(Motion.A);
-	//		Assert.assertEquals(DEFAULT_POSITION.getX()-1, mower.getPosition().getX());
-	//	}
+	// @Test
+	// public void moveWest() {
+	// mower.setDirection(Direction.W);
+	// mower.move(Motion.A);
+	// Assert.assertEquals(DEFAULT_POSITION.getX()-1, mower.getPosition().getX());
+	// }
 
 	@Test
 	public void testGetDirection() {
@@ -90,30 +87,28 @@ public class MowerTest {
 		Assert.assertEquals(NEW_POSITION, mower.getPosition());
 	}
 
-	//	@Test
-	//	public void testTurnLeft() {
-	//		mower.move(Motion.G);
-	//		Assert.assertEquals(Direction.W, mower.getDirection());
-	//		mower.move(Motion.G);
-	//		Assert.assertEquals(Direction.S, mower.getDirection());
-	//		mower.move(Motion.G);
-	//		Assert.assertEquals(Direction.E, mower.getDirection());
-	//		mower.move(Motion.G);
-	//		Assert.assertEquals(Direction.N, mower.getDirection());
-	//	}
+	// @Test
+	// public void testTurnLeft() {
+	// mower.move(Motion.G);
+	// Assert.assertEquals(Direction.W, mower.getDirection());
+	// mower.move(Motion.G);
+	// Assert.assertEquals(Direction.S, mower.getDirection());
+	// mower.move(Motion.G);
+	// Assert.assertEquals(Direction.E, mower.getDirection());
+	// mower.move(Motion.G);
+	// Assert.assertEquals(Direction.N, mower.getDirection());
+	// }
 	//
-	//	@Test
-	//	public void testTurnRight() {
-	//		mower.move(Motion.D);
-	//		Assert.assertEquals(Direction.E, mower.getDirection());
-	//		mower.move(Motion.D);
-	//		Assert.assertEquals(Direction.S, mower.getDirection());
-	//		mower.move(Motion.D);
-	//		Assert.assertEquals(Direction.W, mower.getDirection());
-	//		mower.move(Motion.D);
-	//		Assert.assertEquals(Direction.N, mower.getDirection());
-	//	}
-
-
+	// @Test
+	// public void testTurnRight() {
+	// mower.move(Motion.D);
+	// Assert.assertEquals(Direction.E, mower.getDirection());
+	// mower.move(Motion.D);
+	// Assert.assertEquals(Direction.S, mower.getDirection());
+	// mower.move(Motion.D);
+	// Assert.assertEquals(Direction.W, mower.getDirection());
+	// mower.move(Motion.D);
+	// Assert.assertEquals(Direction.N, mower.getDirection());
+	// }
 
 }

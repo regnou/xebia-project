@@ -38,53 +38,35 @@ import com.gbastianelli.xebia.project.mower.business.MowerProcessor;
 import com.gbastianelli.xebia.project.mower.model.Direction;
 import com.gbastianelli.xebia.project.mower.model.Position;
 
+/**
+ * <p>
+ * MowingApplication: Main class of the application.
+ * <p>
+ * Créé le 25 oct. 2015
+ * @author guillaumebastianelli
+ */
 @SpringBootApplication
 public class MowingApplication implements CommandLineRunner, IMowerProcessorListener {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(MowingApplication.class);
 
+	/** Service used to read and write in file */
 	@Inject
 	private IFileService fileService;
 
+	/** Input file path, can be inject with (--inputFile=...) */
 	@Value("${inputFile}")
 	private String inputFilePath;
 
+	/** The output file */
+	private File outputFile;
+
+	/** Output file path, can be inject with (--outputFile=...) */
 	@Value("${outputFile}")
 	private String outputFilePath;
 
+	/** Map used to store the mower */
 	final TreeMap<String, MowerProcessor> map = new TreeMap<>();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void run(String... args) {
-		LOGGER.info("Beginning of the mowing with the input file : {} and the output file :{}.", inputFilePath, outputFilePath);
-		final File inputFile = new File(inputFilePath);
-		outputFile = new File(outputFilePath);
-		if (!inputFile.exists()) {
-			LOGGER.error("The input file {} doesn't exist.",inputFilePath);
-		}else if (!outputFile.exists()) {
-			LOGGER.error("The output file {} doesn't exist.",outputFilePath);
-		}else{
-			try {
-				fileService.writeDate(outputFile);
-				final FileDesciptor fileDesciptor = fileService.readFile(inputFile);
-				for (final MowingDescriptor mowingDescriptor : fileDesciptor.getMowingDescriptors()) {
-					final MowerProcessor processor = new MowerProcessor(fileDesciptor.getField(), mowingDescriptor.getMotions(),
-							mowingDescriptor.getMower());
-					processor.addMowerProcessorListener(this);
-					map.put(mowingDescriptor.getMower().getName(), processor);
-				}
-				map.firstEntry().getValue().run();
-			} catch (final FileReadingException exception) {
-				LOGGER.error(exception.getMessage());
-			}
-		}
-
-	}
-
-	private File outputFile;
 
 	public static void main(String[] args) throws Exception {
 		final SpringApplication application = new SpringApplication(MowingApplication.class);
@@ -107,6 +89,37 @@ public class MowingApplication implements CommandLineRunner, IMowerProcessorList
 		} else {
 			LOGGER.info("End of the mowing.");
 		}
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void run(String... args) {
+		LOGGER.info("Beginning of the mowing with the input file : {} and the output file :{}.", inputFilePath, outputFilePath);
+		final File inputFile = new File(inputFilePath);
+		outputFile = new File(outputFilePath);
+		if (!inputFile.exists()) {
+			LOGGER.error("The input file {} doesn't exist.", inputFilePath);
+		} else if (!outputFile.exists()) {
+			LOGGER.error("The output file {} doesn't exist.", outputFilePath);
+		} else {
+			try {
+				fileService.writeDate(outputFile);
+				final FileDesciptor fileDesciptor = fileService.readFile(inputFile);
+				for (final MowingDescriptor mowingDescriptor : fileDesciptor.getMowingDescriptors()) {
+					// Create the processor
+					final MowerProcessor processor = new MowerProcessor(fileDesciptor.getField(), mowingDescriptor.getMotions(),
+							mowingDescriptor.getMower());
+					processor.addMowerProcessorListener(this);
+					map.put(mowingDescriptor.getMower().getName(), processor);
+				}
+				map.firstEntry().getValue().run();
+			} catch (final FileReadingException exception) {
+				LOGGER.error(exception.getMessage());
+			}
+		}
+
 	}
 
 }

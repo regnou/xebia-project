@@ -39,27 +39,29 @@ import com.gbastianelli.xebia.project.mower.model.Motion;
 import com.gbastianelli.xebia.project.mower.model.Mower;
 import com.gbastianelli.xebia.project.mower.model.Position;
 
-
 /**
  * <p>
  * FileServiceTest: Test of {@link IFileService}.
  * <p>
  * Créé le 22 oct. 2015
+ * 
  * @author guillaumebastianelli
  */
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes=FileServiceTestConfig.class, loader=AnnotationConfigContextLoader.class)
+@ContextConfiguration(classes = FileServiceTestConfig.class, loader = AnnotationConfigContextLoader.class)
 public class FileServiceTest {
 
 	private static FileDesciptor expectedResult;
-	private static final Direction MOWER_A_DIRECTION=Direction.N;
-	private static final Motion[] MOWER_A_MOTION_SEQUENCE= {Motion.G,Motion.A,Motion.G,Motion.A,Motion.G,Motion.A,Motion.G,Motion.A,Motion.A};
-	private static final String MOWER_A_NAME="Mower 1";
-	private static final Position MOWER_A_POSITION=new Position(1, 2);
-	private static final Direction MOWER_B_DIRECTION=Direction.E;
-	private static final Motion[] MOWER_B_MOTION_SEQUENCE= {Motion.A,Motion.A,Motion.D,Motion.A,Motion.A,Motion.D,Motion.A,Motion.D,Motion.D, Motion.A};
-	private static final String MOWER_B_NAME="Mower 2";
-	private static final Position MOWER_B_POSITION=new Position(3, 3);
+	private static final Direction MOWER_A_DIRECTION = Direction.N;
+	private static final Motion[] MOWER_A_MOTION_SEQUENCE = { Motion.G, Motion.A, Motion.G, Motion.A, Motion.G, Motion.A, Motion.G, Motion.A,
+			Motion.A };
+	private static final String MOWER_A_NAME = "Mower 1";
+	private static final Position MOWER_A_POSITION = new Position(1, 2);
+	private static final Direction MOWER_B_DIRECTION = Direction.E;
+	private static final Motion[] MOWER_B_MOTION_SEQUENCE = { Motion.A, Motion.A, Motion.D, Motion.A, Motion.A, Motion.D, Motion.A, Motion.D,
+			Motion.D, Motion.A };
+	private static final String MOWER_B_NAME = "Mower 2";
+	private static final Position MOWER_B_POSITION = new Position(3, 3);
 	@Value("${inputFile}")
 	private String fileName;
 	@Inject
@@ -73,7 +75,7 @@ public class FileServiceTest {
 		descriptors.add(new MowingDescriptor(mower, Arrays.asList(MOWER_A_MOTION_SEQUENCE)));
 		mower = new Mower(MOWER_B_DIRECTION, MOWER_B_NAME, MOWER_B_POSITION);
 		descriptors.add(new MowingDescriptor(mower, Arrays.asList(MOWER_B_MOTION_SEQUENCE)));
-		expectedResult=new FileDesciptor(field, descriptors);
+		expectedResult = new FileDesciptor(field, descriptors);
 	}
 
 	@Test

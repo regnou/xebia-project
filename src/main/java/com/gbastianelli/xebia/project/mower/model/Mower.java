@@ -23,9 +23,9 @@ public class Mower {
 	/** Position of the mower */
 	private Position position;
 
-
 	/**
 	 * Constructor of {@Mower}.
+	 * 
 	 * @param direction the default direction of the mower
 	 * @param name the default name of the mower
 	 * @param position the default position of the mower
@@ -83,8 +83,7 @@ public class Mower {
 	/**
 	 * Setter of {@link Mower#direction}.
 	 *
-	 * @param direction
-	 *            value of {@link Mower#direction} à "setter".
+	 * @param direction value of {@link Mower#direction} à "setter".
 	 */
 	public void setDirection(Direction direction) {
 		this.direction = direction;
@@ -102,8 +101,7 @@ public class Mower {
 	/**
 	 * Setter of {@link Mower#position}.
 	 *
-	 * @param position
-	 *            value of {@link Mower#position} à "setter".
+	 * @param position value of {@link Mower#position} à "setter".
 	 */
 	public void setPosition(Position position) {
 		this.position = position;

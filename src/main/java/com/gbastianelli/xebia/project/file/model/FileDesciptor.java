@@ -13,10 +13,10 @@ import com.gbastianelli.xebia.project.mower.model.Position;
  * FileDesciptor: Descriptor of the instruction file.
  * <p>
  * Créé le 21 oct. 2015
+ * 
  * @author guillaumebastianelli
  */
 public class FileDesciptor {
-
 
 	/** The size of the field (coordinate of the upper right corner) */
 	private final Position field;
@@ -26,6 +26,7 @@ public class FileDesciptor {
 
 	/**
 	 * Constructor of {@FileDesciptor}.
+	 * 
 	 * @param field Lize of the field (coordinate of the upper right corner)
 	 * @param mowingDescriptors List of mowers and how they have to be processed
 	 */
@@ -76,6 +77,5 @@ public class FileDesciptor {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
-
 
 }

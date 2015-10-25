@@ -19,6 +19,7 @@ import com.gbastianelli.xebia.project.mower.model.Position;
  * MowerProcessor: Business class used to process a mower.
  * <p>
  * Créé le 18 oct. 2015
+ * 
  * @author guillaumebastianelli
  */
 public class MowerProcessor implements Runnable {
@@ -26,7 +27,7 @@ public class MowerProcessor implements Runnable {
 	/** LOGGER */
 	private static final Logger LOGGER = LoggerFactory.getLogger(MowerProcessor.class);
 
-	/** Limit of the field (the upper right corner)*/
+	/** Limit of the field (the upper right corner) */
 	private final Position fieldLimit;
 
 	/** Sequence of motions to be processed */
@@ -40,18 +41,21 @@ public class MowerProcessor implements Runnable {
 
 	/**
 	 * Constructor of {@MowerProcessor}.
+	 * 
 	 * @param fieldLimit the position of the upper right corner of the field to mower
 	 * @param motions the motion to process
 	 * @param mower the mower to process
 	 */
 	public MowerProcessor(Position fieldLimit, List<Motion> motions, Mower mower) {
 		super();
-		this.fieldLimit=fieldLimit;
+		this.fieldLimit = fieldLimit;
 		this.motions = motions;
 		this.mower = mower;
 	}
 
-	/** Add a {@link IMowerProcessorListener} to the processor.
+	/**
+	 * Add a {@link IMowerProcessorListener} to the processor.
+	 * 
 	 * @param listener the listener to add
 	 */
 	public void addMowerProcessorListener(IMowerProcessorListener listener) {
@@ -94,7 +98,9 @@ public class MowerProcessor implements Runnable {
 		return Collections.unmodifiableSet(mowerProcessorListeners);
 	}
 
-	/** Remove a {@link IMowerProcessorListener} to the processor.
+	/**
+	 * Remove a {@link IMowerProcessorListener} to the processor.
+	 * 
 	 * @param listener the listener to remove
 	 */
 	public void removeMowerProcessorListener(IMowerProcessorListener listener) {
@@ -120,17 +126,19 @@ public class MowerProcessor implements Runnable {
 	 * Notify the listener that the mower finished its job.
 	 */
 	private void fireMowingFinished() {
-		for (final IMowerProcessorListener listener: mowerProcessorListeners) {
+		for (final IMowerProcessorListener listener : mowerProcessorListeners) {
 			listener.mowingFinished(mower.getName(), mower.getPosition(), mower.getDirection());
 		}
 	}
 
-	/** Check if a {@link Position} is in the {@link Field}.
+	/**
+	 * Check if a {@link Position} is in the {@link Field}.
+	 * 
 	 * @param position the {@link Position} to check
 	 * @return <code>true</code> if the {@link Position} is in the field else <code>false</code>
 	 */
 	private boolean isInField(Position position) {
-		return (0<= position.getX())&&(position.getX() <=fieldLimit.getX()) && (0<=position.getY())&&(position.getY()<=fieldLimit.getY());
+		return (0 <= position.getX()) && (position.getX() <= fieldLimit.getX()) && (0 <= position.getY()) && (position.getY() <= fieldLimit.getY());
 	}
 
 	/**
@@ -143,31 +151,33 @@ public class MowerProcessor implements Runnable {
 	 * </ul>
 	 */
 	private void moveForward() {
-		Position newPosition=null;
+		Position newPosition = null;
 		switch (mower.getDirection()) {
 		case E:
-			newPosition =  new Position(mower.getPosition().getX() + 1, mower.getPosition().getY());
+			newPosition = new Position(mower.getPosition().getX() + 1, mower.getPosition().getY());
 			break;
 		case N:
-			newPosition =  new Position(mower.getPosition().getX(), mower.getPosition().getY()+1);
+			newPosition = new Position(mower.getPosition().getX(), mower.getPosition().getY() + 1);
 			break;
 		case S:
-			newPosition =  new Position(mower.getPosition().getX(), mower.getPosition().getY()-1);
+			newPosition = new Position(mower.getPosition().getX(), mower.getPosition().getY() - 1);
 			break;
 		case W:
-			newPosition =  new Position(mower.getPosition().getX() - 1, mower.getPosition().getY());
+			newPosition = new Position(mower.getPosition().getX() - 1, mower.getPosition().getY());
 			break;
 		default:
 			break;
 		}
 		if (isInField(newPosition)) {
 			mower.setPosition(newPosition);
-		}else {
+		} else {
 			LOGGER.error("The mower cannot move with order {} because it is beyond the field");
 		}
 	}
 
-	/** Move a mower with a motion "order"
+	/**
+	 * Move a mower with a motion "order"
+	 * 
 	 * @param motion the motion
 	 */
 	private void moveMower(Motion motion) {

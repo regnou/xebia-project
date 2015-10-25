@@ -17,13 +17,14 @@ import com.gbastianelli.xebia.project.mower.model.Position;
  * FileDescriptorTest: Test of {@link FileDesciptor}
  * <p>
  * Créé le 21 oct. 2015
+ * 
  * @author guillaumebastianelli
  */
 public class FileDescriptorTest {
 
 	private static final Position FIELD_SIZE = new Position(23, 76);
-	private static final Motion[] MOTION_A = {Motion.A,Motion.A,Motion.G};
-	private static final Motion[] MOTION_B = {Motion.A,Motion.A,Motion.D};
+	private static final Motion[] MOTION_A = { Motion.A, Motion.A, Motion.G };
+	private static final Motion[] MOTION_B = { Motion.A, Motion.A, Motion.D };
 	private static final Mower MOWER_A = new Mower(Direction.N, "Mower A", new Position(2, 9));
 	private static final Mower MOWER_B = new Mower(Direction.E, "Mower B", new Position(3, 11));
 	private FileDesciptor fileDesciptor;
@@ -34,12 +35,12 @@ public class FileDescriptorTest {
 
 	@Before
 	public void initFileDescriptor() {
-		mowingDescriptorA=new MowingDescriptor(MOWER_A, Arrays.asList(MOTION_A));
+		mowingDescriptorA = new MowingDescriptor(MOWER_A, Arrays.asList(MOTION_A));
 		mowingDescriptorB = new MowingDescriptor(MOWER_B, Arrays.asList(MOTION_B));
 		mowingDescriptors = new ArrayList<MowingDescriptor>();
 		mowingDescriptors.add(mowingDescriptorA);
 		mowingDescriptors.add(mowingDescriptorB);
-		fileDesciptor=new FileDesciptor(FIELD_SIZE, mowingDescriptors);
+		fileDesciptor = new FileDesciptor(FIELD_SIZE, mowingDescriptors);
 	}
 
 	@Test

@@ -11,8 +11,7 @@ import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 @PropertySource("classpath:application-test.properties")
 public class FileServiceTestConfig {
 
-
-	//To resolve ${} in @Value
+	// To resolve ${} in @Value
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertyConfigInDev() {
 		return new PropertySourcesPlaceholderConfigurer();

@@ -16,12 +16,9 @@ public interface IMowerProcessorListener {
 	/**
 	 * Tell when a mower has finished his mowing.
 	 *
-	 * @param mowerName
-	 *            the mower name
-	 * @param finalPosition
-	 *            the final position of the mower
-	 * @param finalDirection
-	 *            the final direction of the mower
+	 * @param mowerName the mower name
+	 * @param finalPosition the final position of the mower
+	 * @param finalDirection the final direction of the mower
 	 */
 	void mowingFinished(String mowerName, Position finalPosition, Direction finalDirection);
 
